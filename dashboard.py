@@ -1,7 +1,4 @@
 
-import os
-os.chdir(r"C:/Users/FELIX/Desktop/Capstone Project")
-
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -29,7 +26,7 @@ st.set_page_config(
 # ===============================
 @st.cache_data
 def load_data():
-    df = pd.read_csv("fake_job_postings.csv")
+    df = pd.read_csv("data/fake_job_postings.csv")
     text_cols = ['title','company_profile','description','requirements','benefits']
     df[text_cols] = df[text_cols].fillna("")
     meta_cols = [
@@ -68,9 +65,9 @@ data['clean_location'] = data[['city','state','country']].apply(lambda x: ', '.j
 @st.cache_resource
 def load_models():
     return (
-        joblib.load("tfidf_vectorizer.pkl"),
-        joblib.load("onehot_encoder.pkl"),
-        joblib.load("fraud_detection_model.pkl")
+        joblib.load("models/tfidf_vectorizer.pkl"),
+        joblib.load("models/onehot_encoder.pkl"),
+        joblib.load("models/fraud_detection_model.pkl")
     )
 
 tfidf, encoder, model = load_models()
